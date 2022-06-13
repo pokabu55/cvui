@@ -3,6 +3,7 @@
 #define CVUI_IMPLEMENTATION 
 #include "cvui.h"
 
+// ウィンドウの名前
 #define WINDOW_NAME "CVUI Hello World!"
 
 int main(void)
@@ -10,31 +11,30 @@ int main(void)
 	cv::Mat frame = cv::Mat(200, 500, CV_8UC3);
 	int count = 0;
 
-	// Init a OpenCV window and tell cvui to use it.
+	// OpenCVのウィンドウ名とそれをcvuiに教えてる
 	cv::namedWindow(WINDOW_NAME);
 	cvui::init(WINDOW_NAME);
 
 	while (true) {
-		// Fill the frame with a nice color
+		// ウィンドウを埋める色 B, G, R
 		frame = cv::Scalar(49, 52, 49);
 
-		// Show a button at position (110, 80)
+		// ウィンドウ中のボタンの表示位置 左上原点
 		if (cvui::button(frame, 110, 80, "Hello, world!")) {
 			// The button was clicked, so let's increment our counter.
 			count++;
 		}
 
-		// Show how many times the button has been clicked.
-		// Text at position (250, 90), sized 0.4, in red.
+		// ウィンドウのテキスト表示位置、サイズ、色
 		cvui::printf(frame, 250, 90, 0.4, 0xff0000, "Button click count: %d", count);
 
-		// Update cvui internal stuff
+		// 表示のアップデート
 		cvui::update();
 
-		// Show everything on the screen
+		// 表示
 		cv::imshow(WINDOW_NAME, frame);
 
-		// Check if ESC key was pressed
+		// ESCキーで終了
 		if (cv::waitKey(20) == 27) {
 			break;
 		}
